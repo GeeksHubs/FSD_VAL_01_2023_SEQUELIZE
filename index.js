@@ -55,6 +55,17 @@ app.delete('/products/:id', async(req, res) => {
     return res.json(deleteProduct);
 })
 
+app.put('/products/:id', async (req, res) => {
+    const productId = req.params.id;
+
+    const name = req.body.name;
+
+    const updateProduct = await Product.update({name: name}, {where: {id: productId}})
+
+    return res.json(updateProduct);
+
+})
+
 db.then(() => {
     //Starting server
     app.listen(PORT, () => console.log("Server on port " + PORT));
