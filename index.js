@@ -39,6 +39,14 @@ app.get('/products', async(req, res)=> {
     return res.json(products);
 })
 
+app.get('/products/:id', async (req, res) => {
+    const productId = req.params.id;
+
+    const product = await Product.findByPk(productId)
+
+    return res.json(product);
+})
+
 db.then(() => {
     //Starting server
     app.listen(PORT, () => console.log("Server on port " + PORT));
