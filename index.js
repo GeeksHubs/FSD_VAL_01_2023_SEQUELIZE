@@ -47,6 +47,14 @@ app.get('/products/:id', async (req, res) => {
     return res.json(product);
 })
 
+app.delete('/products/:id', async(req, res) => {
+    const productId = req.params.id;
+    
+    const deleteProduct = await Product.destroy({where: { id: productId}})
+
+    return res.json(deleteProduct);
+})
+
 db.then(() => {
     //Starting server
     app.listen(PORT, () => console.log("Server on port " + PORT));
