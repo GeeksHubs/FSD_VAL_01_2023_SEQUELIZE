@@ -33,6 +33,12 @@ app.post('/products', async(req, res) => {
     return res.json(product)
 })
 
+app.get('/products', async(req, res)=> {
+    const products = await Product.findAll();
+
+    return res.json(products);
+})
+
 db.then(() => {
     //Starting server
     app.listen(PORT, () => console.log("Server on port " + PORT));
