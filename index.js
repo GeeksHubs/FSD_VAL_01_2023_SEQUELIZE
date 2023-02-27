@@ -87,6 +87,18 @@ app.post('/comments', async (req, res) => {
     }
 })
 
+app.get('/comments/:id', async (req, res) => {
+    const commentId = req.params.id;
+
+    const comment = await Comment.findByPk(commentId, {
+        include: {all: true}
+    });
+
+    return res.json(comment);
+})
+
+
+
 db.then(() => {
     //Starting server
     app.listen(PORT, () => console.log("Server on port " + PORT));
