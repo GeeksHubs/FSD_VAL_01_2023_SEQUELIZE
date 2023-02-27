@@ -4,11 +4,14 @@ const db = require('./db.js');
 require('dotenv').config()
 
 const productRoutes = require('./views/productRoutes');
+const authRoutes = require('./views/authRoutes')
 
 const app = express();
 
 app.use(express.json());
+
 app.use(productRoutes);
+app.use(authRoutes);
 
 const PORT = process.env.PORT || 4000;
 
