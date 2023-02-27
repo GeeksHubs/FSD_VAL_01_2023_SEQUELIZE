@@ -1,6 +1,7 @@
 const express = require('express');
 const { Product, Comment } = require('./models/index')
 const db = require('./db.js');
+const productController = require('./controllers/productController');
 require('dotenv').config()
 
 const app = express();
@@ -13,25 +14,7 @@ app.get('/welcome', (req, res) => {
     return res.send("Bienvenido a mi app")
 })
 
-app.post('/products', async(req, res) => {
-    // Recuperamos la informacion a traves de la req
-    // const name = req.body.name;
-    // const description = req.body.description;
-    // const price = req.body.price;
-
-    const { name, description, price } = req.body;
-
-    const newProduct = {
-        name: name,
-        description: description,
-        price: price
-    }
-
-    // Guardar la informacion
-    const product = await Product.create(newProduct)
-
-    return res.json(product)
-})
+app.post('/products', productController.createProduct)
 
 app.get('/products', async(req, res)=> {
     const products = await Product.findAll();
