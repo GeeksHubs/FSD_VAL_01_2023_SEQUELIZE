@@ -42,7 +42,11 @@ app.get('/products', async(req, res)=> {
 app.get('/products/:id', async (req, res) => {
     const productId = req.params.id;
 
-    const product = await Product.findByPk(productId)
+    const product = await Product.findByPk(productId, {
+        // solo nos trae las relaciones con comment
+        // include: Comment,
+        include: {all: true}
+    });
 
     return res.json(product);
 })
