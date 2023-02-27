@@ -1,7 +1,6 @@
 const express = require('express');
 const { Product, Comment } = require('./models/index')
 const db = require('./db.js');
-const productController = require('./controllers/productController');
 require('dotenv').config()
 
 const productRoutes = require('./views/productRoutes');
@@ -15,24 +14,6 @@ const PORT = process.env.PORT || 4000;
 
 app.get('/welcome', (req, res) => {
     return res.send("Bienvenido a mi app")
-})
-
-app.get('/products', async(req, res)=> {
-    const products = await Product.findAll();
-
-    return res.json(products);
-})
-
-app.get('/products/:id', async (req, res) => {
-    const productId = req.params.id;
-
-    const product = await Product.findByPk(productId, {
-        // solo nos trae las relaciones con comment
-        // include: Comment,
-        include: {all: true}
-    });
-
-    return res.json(product);
 })
 
 app.delete('/products/:id', async(req, res) => {
