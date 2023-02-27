@@ -44,4 +44,22 @@ productController.getProductById = async (req, res) => {
     return res.json(product);
 }
 
+productController.deleteProductById = async(req, res) => {
+    const productId = req.params.id;
+    
+    const deleteProduct = await Product.destroy({where: { id: productId}})
+
+    return res.json(deleteProduct);
+}
+
+productController.updateProductById = async (req, res) => {
+    const productId = req.params.id;
+
+    const name = req.body.name;
+
+    const updateProduct = await Product.update({name: name}, {where: {id: productId}})
+
+    return res.json(updateProduct);
+}
+
 module.exports = productController;

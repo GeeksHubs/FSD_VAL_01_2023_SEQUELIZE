@@ -19,25 +19,6 @@ app.get('/welcome', (req, res) => {
     return res.send("Bienvenido a mi app")
 })
 
-app.delete('/products/:id', async(req, res) => {
-    const productId = req.params.id;
-    
-    const deleteProduct = await Product.destroy({where: { id: productId}})
-
-    return res.json(deleteProduct);
-})
-
-app.put('/products/:id', async (req, res) => {
-    const productId = req.params.id;
-
-    const name = req.body.name;
-
-    const updateProduct = await Product.update({name: name}, {where: {id: productId}})
-
-    return res.json(updateProduct);
-
-})
-
 app.post('/comments', async (req, res) => {
     try {
         //REcuperamos info a guardar
