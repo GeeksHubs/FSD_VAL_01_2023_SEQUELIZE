@@ -4,7 +4,7 @@ const userController = {};
 
 userController.getUserFavorites = async (req, res) => {
     try {
-        const userId = req.params.id;
+        const userId = req.userId;
 
         const userFavorites = await User.findByPk(
             userId,
