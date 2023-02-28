@@ -27,4 +27,32 @@ authController.register = async (req, res) => {
     }
 }
 
+authController.login = async(req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const user = await User.findOne(
+            {
+                where: {
+                    email: email
+                }
+            }
+        );
+
+        if(!user) {
+            return res.send('Wrong Credentials')
+        }
+
+        const isMatch = bcrypt.compareSync(password, user.password);
+
+        if(!isMatch) {
+            return res.send('Wrong Credentials')
+        }
+
+        return res.json(isMatch)
+    } catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
+
 module.exports = authController;
