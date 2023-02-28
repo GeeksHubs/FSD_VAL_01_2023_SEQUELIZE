@@ -9,6 +9,9 @@ userController.getUserFavorites = async (req, res) => {
         const userFavorites = await User.findByPk(
             userId,
             {
+                attributes: {
+                    exclude: ["password"]
+                },
                 include: {
                     all: true
                 }
