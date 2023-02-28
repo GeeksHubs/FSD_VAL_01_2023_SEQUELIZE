@@ -5,6 +5,7 @@ require('dotenv').config()
 const productRoutes = require('./views/productRoutes');
 const authRoutes = require('./views/authRoutes')
 const commentRoutes = require('./views/commentRoutes')
+const userRoutes = require('./views/userRoutes')
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(productRoutes);
 app.use(authRoutes);
 app.use(commentRoutes);
+app.use(userRoutes);
 
 const PORT = process.env.PORT || 4000;
 

@@ -14,6 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Comment, {
         foreignKey: 'product_id'
       });
+
+      Product.belongsToMany(
+        models.User,
+        {
+          through: 'favorites',
+          foreignKey: 'product_id'
+        }
+      )
     }
   }
   Product.init({
