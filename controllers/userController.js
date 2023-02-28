@@ -28,7 +28,7 @@ userController.getUserFavorites = async (req, res) => {
     }
 }
 
-userController.createFavorites = async(req, res) => {
+userController.createFavorites = async (req, res) => {
     try {
         const { product_id } = req.body;
         const user_id = req.userId;
@@ -41,6 +41,32 @@ userController.createFavorites = async(req, res) => {
         )
 
         return res.json(newProdutFavorite);
+    } catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
+
+userController.updateUser = async (req, res) => {
+    try {
+        const { name } = req.body;
+        const userId = req.userId
+
+        const updateUSer = await User.update(
+            {
+                name: name
+            },
+            {
+                where: {
+                    id: userId
+                }
+            }
+        );
+
+        if (!updateUSer) {
+            return res.send('User not updated')
+        }
+
+        return res.send('User updated')
     } catch (error) {
         return res.status(500).send(error.message)
     }
