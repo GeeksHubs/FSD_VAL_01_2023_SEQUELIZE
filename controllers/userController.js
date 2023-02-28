@@ -1,4 +1,5 @@
 const { User, Favorite } = require("../models")
+const bcrypt = require('bcrypt');
 
 const userController = {};
 
@@ -48,12 +49,15 @@ userController.createFavorites = async (req, res) => {
 
 userController.updateUser = async (req, res) => {
     try {
-        const { name } = req.body;
+        const { name, password } = req.body;
         const userId = req.userId
+
+        const encryptedPassword = bcrypt.hashSync(password, 10);
 
         const updateUSer = await User.update(
             {
-                name: name
+                name: name,
+                password: encryptedPassword
             },
             {
                 where: {
@@ -67,6 +71,17 @@ userController.updateUser = async (req, res) => {
         }
 
         return res.send('User updated')
+    } catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
+
+userController.profile = async(req, res) => {
+    try {
+        const userId = req.userId;
+        const user = await User.findByPk(userId)
+
+        return res.json(user);
     } catch (error) {
         return res.status(500).send(error.message)
     }

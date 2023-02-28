@@ -6,5 +6,6 @@ const router = require('express').Router();
 router.get('/users/favorites', verifyToken, userController.getUserFavorites)
 router.post('/users/favorites', verifyToken, userController.createFavorites)
 router.put('/users', verifyToken, userController.updateUser)
+router.get('/profile', verifyToken, userController.profile)
 
 module.exports = router;
