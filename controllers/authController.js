@@ -1,17 +1,22 @@
 const { User } = require('../models');
+const bcrypt = require('bcrypt');
 
 const authController = {};
 
 
 authController.register = async (req, res) => {
     try {
+        //recuperar info de la peticion
         const { name, email, password } = req.body;
+
+        // tratar esa informaion
+        const encryptedPassword = bcrypt.hashSync(password, 10);
 
         const newUser = await User.create(
             {
                 name: name,
                 email: email,
-                password: password,
+                password: encryptedPassword,
                 role_id: 1
             }
         )
