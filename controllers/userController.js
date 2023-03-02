@@ -1,4 +1,4 @@
-const { User, Favorite } = require("../models")
+const { User, Favorite, Service, Cita, Doctor } = require("../models")
 const bcrypt = require('bcrypt');
 
 const userController = {};
@@ -76,13 +76,70 @@ userController.updateUser = async (req, res) => {
     }
 }
 
-userController.profile = async(req, res) => {
+userController.profile = async (req, res) => {
     try {
         const userId = req.userId;
         const user = await User.findByPk(userId)
 
         return res.json(user);
     } catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
+
+userController.getCitas = async (req, res) => {
+    try {
+        // const userCitas = await User.findByPk(
+        //     req.userId,
+        //     { 
+        //         include: [
+        //             {
+        //             model: Service,
+        //             // as: "citas",
+        //             through: {
+        //                 attributes: ["doctor_id", "user_id", "createdAt"],
+        //             }
+                    
+        //         },
+        //     ]
+        //     }
+        // )
+
+        // const userCitas = await Cita.findAll(
+        //     {
+        //         where: { 
+        //             user_id: req.userId 
+        //         },
+        //         include: [
+        //             Service,
+        //         //     {
+        //         //         model: User,
+        //         // //         attributes: {
+        //         // //             exclude: ["password", "role_id", "createdAt", "updatedAt"]
+        //         // //         },
+        //         //     },
+        //         // // //     {
+        //         // // //         model: Doctor,
+        //         // // // //         attributes: {
+        //         // // // //             exclude: ["user_id", "createdAt", "updatedAt"]
+        //         // // // //         },
+        //         // // // // //         include: {
+        //         // // // // //             model: User,
+        //         // // // // // //             attributes: {
+        //         // // // // // //                 exclude: ["password", "role_id", "createdAt", "updatedAt"]
+        //         // // // // // //             },
+        //         // // // // //         }
+        //         // // //     },
+        //         ],
+        //         // // // // // // // attributes: {
+        //         // // // // // // //     exclude: ["user_id", "doctor_id", "service_id"]
+        //         // // // // // // // }
+        //     }
+        // )
+
+        return res.json(userCitas)
+    } catch (error) {
+        
         return res.status(500).send(error.message)
     }
 }
