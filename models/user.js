@@ -18,6 +18,20 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'user_id'
         }
       )
+
+      User.belongsToMany(
+        models.Service,
+        {
+          through: 'cita',
+          foreignKey: 'user_id',
+          // as: "citas"
+        }
+      )
+
+      User.hasMany(models.Doctor, {
+        foreignKey: 'user_id'
+      });
+
     }
   }
   User.init({
