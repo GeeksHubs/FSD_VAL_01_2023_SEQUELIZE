@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const db = require('./db.js');
 require('dotenv').config()
 
@@ -9,6 +10,7 @@ const userRoutes = require('./views/userRoutes')
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.use(productRoutes);
@@ -18,7 +20,7 @@ app.use(userRoutes);
 
 const PORT = process.env.PORT || 4000;
 
-app.get('/welcome', (req, res) => {
+app.get('/', (req, res) => {
     return res.send("Bienvenido a mi app")
 })
 
